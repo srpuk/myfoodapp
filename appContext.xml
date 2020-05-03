@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+   <context:property-placeholder location="src/main/java/AppProperties.property"/>
+
+   <bean id="externalvegbean" class="foody.Vegetable" autowire="default">
+   <property name="desc" value="${def_veg}"></property>
+   </bean>
+
+
+   <bean id="meatbean" class="foody.Meat">
+   </bean>
+
+   <bean id="vegbean" class="foody.Vegetable">
+   </bean>
+
+   <bean id="constrdbean" class="foody.Meal" primary="true">
+   <constructor-arg index="0" ref="meatbean"></constructor-arg>
+   </bean>
+   
+   <bean id="constrd2bean" class="foody.Meal">
+   <constructor-arg name="v" ref="vegbean"></constructor-arg>
+   </bean>
+ 
+   <bean id="outerbean" class="foody.Meal">
+   <property name="chemD">
+   <bean id="innerbean" class="foody.Chemicals"  init-method="init" destroy-method="destroy">
+   <property name="name" value="agino"></property>
+   </bean>
+   </property>
+   </bean>
+ 
+   <bean id="chemAN" class="foody.Chemicals">
+   <property name="use" value="for artificial taste">
+   </property>
+   </bean>
+ 
+   <bean id="autobyname" class="foody.Autolunch" autowire="byName">
+   </bean>
+ 
+   <bean id="autoconstructor" class="foody.AutoDinner" autowire="constructor">
+   </bean>
+ 
+</beans>
